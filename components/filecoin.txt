@@ -1,0 +1,52 @@
+1. DealClient.sol
+2. Prepare data acc to dealClient struct
+3. Function makeDealProposal (Struct), getDealRequest()
+4. Convert to car. Epoch and end epoch (epoch explorer)
+
+
+1. Uploading file
+  const fileChangeHandler = (event) => {
+    setEnteredFile(event.target.value);
+    if (event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
+  };
+
+  2. Upload to IPFS and get CID
+
+  3. Generate CAR carLink and size
+  setFile(event.target.files[0]);
+  const fileToUpload = new File([file], file.name.split(" ").join(""), {
+      type: file.type,
+    });
+    console.log(fileToUpload);
+    setFileSize(fileToUpload.size);
+
+  carLink = `https://ipfs.io/ipfs/${cid}?format=car`;
+
+  3. Prepare the argument/struct as required
+  const extraParamsV1 = [
+    carLink,
+    10000, //for @abhay - change this in future
+    false,
+    false,
+  ];
+
+  const DealRequestStruct = [
+    _CID.bytes,
+    fileSize,
+    false,
+    cid,
+    184200, //startEpoch - be sure to check while final deploy
+    200000, // end epoch - '👆'
+    0,
+    0,
+    0,
+    1,
+    extraParamsV1,
+  ];
+  
+  console.log(dealClient.interface);
+  const transaction = await dealClient.makeDealProposal(
+    DealRequestStruct
+  );
